@@ -13,6 +13,7 @@
 package org.eclipse.sirius.web.services.api.projects;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.sirius.components.annotations.Immutable;
@@ -30,6 +31,8 @@ public final class ProjectTemplate {
 
     private String imageURL;
 
+    private List<Nature> natures;
+
     private ProjectTemplate() {
         // Prevent instantiation
     }
@@ -44,6 +47,10 @@ public final class ProjectTemplate {
 
     public String getImageURL() {
         return this.imageURL;
+    }
+
+    public List<Nature> getNatures() {
+        return this.natures;
     }
 
     public static Builder newProjectTemplate(String id) {
@@ -70,6 +77,8 @@ public final class ProjectTemplate {
 
         private String imageURL;
 
+        private List<Nature> natures;
+
         private Builder(String id) {
             this.id = Objects.requireNonNull(id);
         }
@@ -84,11 +93,17 @@ public final class ProjectTemplate {
             return this;
         }
 
+        public Builder natures(List<Nature> natures) {
+            this.natures = Objects.requireNonNull(natures);
+            return this;
+        }
+
         public ProjectTemplate build() {
             ProjectTemplate projectTemplate = new ProjectTemplate();
             projectTemplate.id = Objects.requireNonNull(this.id);
             projectTemplate.label = Objects.requireNonNull(this.label);
             projectTemplate.imageURL = this.imageURL;
+            projectTemplate.natures = this.natures;
             return projectTemplate;
         }
     }

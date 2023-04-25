@@ -81,9 +81,10 @@ public class RenameFormDescriptionEditorEventHandler implements IFormDescription
             String newLabel = renameRepresentationInput.newLabel();
 
             FormDescriptionEditor renamedFormDescriptionEditor = FormDescriptionEditor.newFormDescriptionEditor(formDescriptionEditorContext.getFormDescriptionEditor())
-                    .label(newLabel)
-                    .groups(List.of()) // We don't store form description editor groups, it will be re-render by the FormDescriptionEditorProcessor.
-                    .build();
+                                                                                      .label(newLabel)
+                                                                                      .pages(List.of()) // We don't store form description editor pages, it will be re-render by
+                                                                                      // the FormDescriptionEditorProcessor.
+                                                                                      .build();
             this.representationPersistenceService.save(editingContext, renamedFormDescriptionEditor);
 
             payload = new RenameRepresentationSuccessPayload(formDescriptionEditorInput.id(), renamedFormDescriptionEditor);

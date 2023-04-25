@@ -18,6 +18,7 @@
 All the colors are now defined in a new palette object _ColorPalette_ with the properties _name_ and _value_.
 A view can define as many _ColorPalette_ as desired.
 In the _styleDescription_, the definition of a color are now a select list of all the colors contained in the _ColorPalette_ of the view.
+- https://github.com/eclipse-sirius/sirius-components/issues/1915[#1915] [view] Add the page support in the view DSL.
 
 === Dependency update
 - https://github.com/eclipse-sirius/sirius-components/issues/1936[#1936] [releng] Switch to Cypress 12.11.0

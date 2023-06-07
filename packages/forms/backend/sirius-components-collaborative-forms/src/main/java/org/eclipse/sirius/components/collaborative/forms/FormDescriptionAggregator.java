@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.eclipse.sirius.components.collaborative.forms.variables.FormVariableProvider;
 import org.eclipse.sirius.components.core.api.IObjectService;
 import org.eclipse.sirius.components.forms.description.FormDescription;
 import org.eclipse.sirius.components.forms.description.PageDescription;
@@ -36,12 +37,12 @@ public class FormDescriptionAggregator {
         List<PageDescription> eligiblePageDescriptions = new ArrayList<>();
 
 
-        for (Object object : objects) {
+        if (!objects.isEmpty()) {
             VariableManager pageVariableManager = new VariableManager();
-            pageVariableManager.put(VariableManager.SELF, object);
+            pageVariableManager.put(VariableManager.SELF, objects.get(0));
+            pageVariableManager.put(FormVariableProvider.SELECTION.name(), objects);
 
             eligiblePageDescriptions.addAll(pageDescriptions.stream()
-                    .filter(pageDescription -> !eligiblePageDescriptions.contains(pageDescription))
                     .filter(pageDescription -> pageDescription.getCanCreatePredicate().test(pageVariableManager))
                     .toList());
         }
@@ -52,16 +53,10 @@ public class FormDescriptionAggregator {
         }
 
         Function<VariableManager, String> labelProvider = variableManager -> variableManager.get(VariableManager.SELF, Object.class)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
                 .map(objectService::getFullLabel)
                 .orElse("Properties");
 
         Function<VariableManager, String> targetObjectIdProvider = variableManager -> variableManager.get(VariableManager.SELF, Object.class)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
                 .map(objectService::getId)
                 .orElse(null);
 

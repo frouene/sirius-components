@@ -104,7 +104,8 @@ public class PropertiesEventProcessorFactory implements IRepresentationEventProc
                 FormCreationParameters formCreationParameters = FormCreationParameters.newFormCreationParameters(propertiesConfiguration.getId())
                         .editingContext(editingContext)
                         .formDescription(formDescription)
-                        .objects(objects)
+                        .object(objects.get(0))
+                        .selection(objects)
                         .build();
                 // @formatter:on
 

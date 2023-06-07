@@ -95,9 +95,6 @@ public class ViewFormDescriptionConverter implements IRepresentationDescriptionC
                 .toList();
 
         Function<VariableManager, String> targetObjectIdProvider = variableManager -> this.self(variableManager)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
                 .map(this.objectService::getId)
                 .orElse(null);
 

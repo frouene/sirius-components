@@ -157,7 +157,7 @@ public class ViewPropertiesDescriptionRegistryConfigurer implements IPropertiesD
         };
 
         // @formatter:off
-        return PageDescription.newPageDescription("firstPageId")
+        return PageDescription.newPageDescription(UUID.nameUUIDFromBytes("view_properties_description".getBytes()).toString())
                 .idProvider(idProvider)
                 .labelProvider(labelProvider)
                 .semanticElementsProvider(variableManager -> Collections.singletonList(variableManager.getVariables().get(VariableManager.SELF)))
@@ -170,9 +170,6 @@ public class ViewPropertiesDescriptionRegistryConfigurer implements IPropertiesD
     private boolean handles(VariableManager variableManager) {
         // @formatter:off
         Optional<EObject> selectedElement = variableManager.get(VariableManager.SELF, Object.class)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
                 .filter(EObject.class::isInstance)
                 .map(EObject.class::cast);
         boolean isViewElement = selectedElement
@@ -193,8 +190,7 @@ public class ViewPropertiesDescriptionRegistryConfigurer implements IPropertiesD
             List<Object> objects = new ArrayList<>();
 
             Object self = variableManager.getVariables().get(VariableManager.SELF);
-            if (self instanceof EObject) {
-                EObject eObject = (EObject) self;
+            if (self instanceof EObject eObject) {
 
                 // @formatter:off
                 List<IItemPropertyDescriptor> propertyDescriptors = Optional.ofNullable(this.composedAdapterFactory.adapt(eObject, IItemPropertySource.class))

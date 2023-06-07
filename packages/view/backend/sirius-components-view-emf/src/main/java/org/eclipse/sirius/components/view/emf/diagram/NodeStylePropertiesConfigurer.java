@@ -118,9 +118,6 @@ public class NodeStylePropertiesConfigurer implements IPropertiesDescriptionRegi
 
         // @formatter:off
         Predicate<VariableManager> canCreatePagePredicate = variableManager ->  variableManager.get(VariableManager.SELF, Object.class)
-                    .filter(self -> self instanceof List<?>)
-                    .map(self -> (List<?>) self)
-                    .flatMap(self -> self.stream().findFirst())
                     .filter(ImageNodeStyleDescription.class::isInstance)
                     .isPresent();
 
@@ -144,10 +141,7 @@ public class NodeStylePropertiesConfigurer implements IPropertiesDescriptionRegi
         GroupDescription groupDescription = this.createSimpleGroupDescription(controls);
 
         Predicate<VariableManager> canCreatePagePredicate = variableManager ->  variableManager.get(VariableManager.SELF, Object.class)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
-                .filter(self -> self instanceof IconLabelNodeStyleDescription)
+                .filter(IconLabelNodeStyleDescription.class::isInstance)
                 .isPresent();
 
         return FormDescription.newFormDescription(formDescriptionId)
@@ -180,10 +174,7 @@ public class NodeStylePropertiesConfigurer implements IPropertiesDescriptionRegi
         GroupDescription groupDescription = this.createSimpleGroupDescription(controls);
 
         Predicate<VariableManager> canCreatePagePredicate = variableManager ->  variableManager.get(VariableManager.SELF, Object.class)
-                .filter(self -> self instanceof List<?>)
-                .map(self -> (List<?>) self)
-                .flatMap(self -> self.stream().findFirst())
-                .filter(self -> self instanceof RectangularNodeStyleDescription)
+                .filter(RectangularNodeStyleDescription.class::isInstance)
                 .isPresent();
 
         return FormDescription.newFormDescription(formDescriptionId)

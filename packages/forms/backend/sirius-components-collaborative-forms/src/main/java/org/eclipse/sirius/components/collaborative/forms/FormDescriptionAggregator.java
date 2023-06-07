@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.sirius.components.collaborative.forms;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -30,14 +31,20 @@ import org.eclipse.sirius.components.representations.VariableManager;
  */
 public class FormDescriptionAggregator {
 
-    public Optional<FormDescription> aggregate(List<FormDescription> formDescriptions, List<Object> objects, IObjectService objectService) {
-        VariableManager pageVariableManager = new VariableManager();
-        pageVariableManager.put(VariableManager.SELF, objects);
 
-        List<PageDescription> pageDescriptions = formDescriptions.stream()
-                .flatMap(formDescription -> formDescription.getPageDescriptions().stream())
-                .filter(pageDescription -> pageDescription.getCanCreatePredicate().test(pageVariableManager))
-                .toList();
+    public Optional<FormDescription> aggregate(List<FormDescription> formDescriptions, List<Object> objects, IObjectService objectService) {
+        List<PageDescription> pageDescriptions = new ArrayList<>();
+
+        for (Object object : objects) {
+            VariableManager pageVariableManager = new VariableManager();
+            pageVariableManager.put(VariableManager.SELF, object);
+
+            eligiblePageDescriptions.addAll(pageDescriptions.stream()
+                    .filter(pageDescription -> !eligiblePageDescriptions.contains(pageDescription))
+                    .filter(pageDescription -> pageDescription.getCanCreatePredicate().test(pageVariableManager))
+                    .toList());
+        }
+
 
         if (pageDescriptions.isEmpty()) {
             return Optional.empty();

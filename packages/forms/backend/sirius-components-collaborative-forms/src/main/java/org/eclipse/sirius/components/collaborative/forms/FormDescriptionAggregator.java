@@ -32,8 +32,9 @@ import org.eclipse.sirius.components.representations.VariableManager;
 public class FormDescriptionAggregator {
 
 
-    public Optional<FormDescription> aggregate(List<FormDescription> formDescriptions, List<Object> objects, IObjectService objectService) {
-        List<PageDescription> pageDescriptions = new ArrayList<>();
+    public Optional<FormDescription> aggregate(List<PageDescription> pageDescriptions, List<Object> objects, IObjectService objectService) {
+        List<PageDescription> eligiblePageDescriptions = new ArrayList<>();
+
 
         for (Object object : objects) {
             VariableManager pageVariableManager = new VariableManager();
@@ -46,7 +47,7 @@ public class FormDescriptionAggregator {
         }
 
 
-        if (pageDescriptions.isEmpty()) {
+        if (eligiblePageDescriptions.isEmpty()) {
             return Optional.empty();
         }
 
@@ -70,7 +71,7 @@ public class FormDescriptionAggregator {
                 .labelProvider(labelProvider)
                 .targetObjectIdProvider(targetObjectIdProvider)
                 .canCreatePredicate(variableManager -> false)
-                .pageDescriptions(pageDescriptions)
+                .pageDescriptions(eligiblePageDescriptions)
                 .build());
     }
 }

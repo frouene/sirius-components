@@ -76,7 +76,7 @@ public class DomainPropertiesConfigurer implements IPropertiesDescriptionRegistr
         AQLInterpreter interpreter = new AQLInterpreter(List.of(), List.of(new DomainAttributeServices(this.feedbackMessageService)), List.of(DomainPackage.eINSTANCE));
         IRepresentationDescription converted = this.converter.convert(viewFormDescription, List.of(), interpreter);
         if (converted instanceof org.eclipse.sirius.components.forms.description.FormDescription formDescription) {
-            registry.add(formDescription);
+            formDescription.getPageDescriptions().forEach(registry::add);
         }
     }
 

@@ -87,9 +87,8 @@ public class DomainPropertiesConfigurer implements IPropertiesDescriptionRegistr
         form.setTitleExpression("Attribute Details");
 
         PageDescription page = ViewFactory.eINSTANCE.createPageDescription();
-        // FormDescriptionAggregator works at the Page level and uses a *list* of selected
-        // objects as input to determine which pages to instantiate according to their precondition.
-        page.setPreconditionExpression("aql:self->first().oclIsKindOf(domain::Attribute)");
+        page.setDomainType("domain::Attribute");
+        page.setPreconditionExpression("");
         page.setLabelExpression("aql:self.name + ': ' + self.getDataType().capitalize()");
         form.getPages().add(page);
         page.getGroups().add(this.createGroup());

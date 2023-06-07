@@ -82,14 +82,36 @@ public interface PageDescription extends EObject {
     void setLabelExpression(String value);
 
     /**
+     * Returns the value of the '<em><b>Domain Type</b></em>' attribute. The default value is <code>""</code>. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the value of the '<em>Domain Type</em>' attribute.
+     * @model default="" dataType="org.eclipse.sirius.components.view.DomainType"
+     * @generated
+     * @see #setDomainType(String)
+     * @see org.eclipse.sirius.components.view.ViewPackage#getPageDescription_DomainType()
+     */
+    String getDomainType();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.sirius.components.view.PageDescription#getDomainType <em>Domain
+     * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @param value the new value of the '<em>Domain Type</em>' attribute.
+     * @generated
+     * @see #getDomainType()
+     */
+    void setDomainType(String value);
+
+    /**
      * Returns the value of the '<em><b>Semantic Candidates Expression</b></em>' attribute. The default value is
      * <code>"aql:self"</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @return the value of the '<em>Semantic Candidates Expression</em>' attribute.
-     * @see #setSemanticCandidatesExpression(String)
-     * @see org.eclipse.sirius.components.view.ViewPackage#getPageDescription_SemanticCandidatesExpression()
      * @model default="aql:self" dataType="org.eclipse.sirius.components.view.InterpretedExpression"
      * @generated
+     * @see #setSemanticCandidatesExpression(String)
+     * @see org.eclipse.sirius.components.view.ViewPackage#getPageDescription_SemanticCandidatesExpression()
      */
     String getSemanticCandidatesExpression();
 
